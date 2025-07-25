@@ -17,11 +17,20 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
+    // protected $fillable = [
+    //     'email',
+    //     'password',
+    //     'first_name',
+    //     'last_name',
+    //     'is_active',
+    //     'username',
+    // ]; // fillable is a whitelist of attributes that can be mass assigned
+
+    // on the other hand, guarded is a blacklist of attributes that cannot be mass assigned
+    protected $guarded = [
+        'is_admin'
     ];
+    // both of these properties can be used to protect against mass assignment vulnerabilities
 
     /**
      * The attributes that should be hidden for serialization.
