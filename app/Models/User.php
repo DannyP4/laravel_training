@@ -59,7 +59,7 @@ class User extends Authenticatable
     // one user can have many tasks
     public function tasks(): HasMany
     {
-        return $this->hasMany(Tasks::class);
+        return $this->hasMany(Task::class);
     }
 
     // one user can have many roles
