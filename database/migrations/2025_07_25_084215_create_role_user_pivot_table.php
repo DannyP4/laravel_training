@@ -11,19 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Create the tasks table
-        Schema::create('tasks', function (Blueprint $table) {
+        Schema::create('role_user', function (Blueprint $table) {
             $table->id();
+
+            // define foreign keys for role_user table
+            $table->foreignId('role_id')->constrained('roles')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); // foreign key to users table
         });
-    } // use php artisan make:model Task -m  to create the model and migration
+    }
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('tasks');
+        Schema::dropIfExists('role_user');
     }
 };
