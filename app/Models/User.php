@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany; // not neeeded
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -64,5 +66,33 @@ class User extends Authenticatable
     public function roles(): BelongsToMany
     {
         return $this->belongsToMany(Role::class)->withTimestamps();
+    }
+
+
+    // assessor of full name (equivalent to a getter)
+    protected function fullName(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => $this->attributes['first_name'] . " " . $this->attributes['last_name'],
+            //get: fn ($value) => $this->first_name . " " . $this->last_name, // this will work the same
+        );
+    }
+
+    // mutator for username (equivalent to a setter)
+    protected function username(): Attribute
+    {
+        return Attribute::make(
+            set: fn ($value) => Str::slug($value),
+            // set: fn ($value) => strtolower(trim($value)) // make it lowercase and trim
+            // set: fn ($value) => $value // keep the original value
+        );
+    }
+
+    // hash the password with bcrypt before saving it to the database
+    protected function password(): Attribute
+    {
+        return Attribute::make(
+            set: fn ($value) => bcrypt($value)
+        );
     }
 }
