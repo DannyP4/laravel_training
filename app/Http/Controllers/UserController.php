@@ -34,8 +34,6 @@ class UserController extends Controller
             'username' => $request->username,
             'email' => $request->email,
             'password' => bcrypt($request->password),
-            'is_admin' => 0,
-            'is_active' => 1,
         ]);
 
         return redirect()->route('users.index');

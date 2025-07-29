@@ -27,7 +27,7 @@ class User extends Authenticatable
         'first_name',
         'last_name',
         'is_active',
-        'is_admin',
+        //'is_admin',
         'username',
     ]; // fillable is a whitelist of attributes that can be mass assigned
 
