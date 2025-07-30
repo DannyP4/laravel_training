@@ -54,7 +54,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'password' => 'hashed',
+        //'password' => 'hashed',
     ];
 
     // one user can have many tasks
@@ -90,10 +90,11 @@ class User extends Authenticatable
     }
 
     // hash the password with bcrypt before saving it to the database
-    protected function password(): Attribute
-    {
-        return Attribute::make(
-            set: fn ($value) => bcrypt($value)
-        );
-    }
+    // protected function password(): Attribute
+    // {
+    //     return Attribute::make(
+    //         set: fn ($value) => bcrypt($value)
+    //     );
+    // }
+    // comment this function because we already hashed the password in the Controller
 }
