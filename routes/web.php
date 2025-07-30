@@ -1,10 +1,7 @@
 <?php
 
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\TaskController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,51 +14,18 @@ use App\Http\Controllers\TaskController;
 |
 */
 
-Auth::loginUsingId(2); // because user_id = 2 is admin (is_admin = 1)
-
 Route::get('/', function () {
     return view('welcome');
 });
 
-// user routes (step by step)
-Route::get('/users', [UserController::class, 'index'])->name('users.index');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-// // only admin can crud users
-// Route::get('/users/create', [UserController::class, 'create'])
-//     ->name('users.create')
-//     ->middleware('admin');
-// Route::post('/users/store', [UserController::class, 'store'])
-//     ->name('users.store')
-//     ->middleware('admin');
-// Route::get('/users/show/{user}', [UserController::class, 'show'])
-//     ->name('users.show');
-// Route::get('/users/edit/{user}', [UserController::class, 'edit'])
-//     ->name('users.edit')
-//     ->middleware('admin');
-// Route::put('/users/update/{user}', [UserController::class, 'update'])
-//     ->name('users.update')
-//     ->middleware('admin');
-// Route::get('/users/delete/{user}', [UserController::class, 'showDeleteForm'])
-//     ->name('users.deleteForm')
-//     ->middleware('admin');
-// Route::delete('/users/destroy/{user}', [UserController::class, 'destroy'])
-//     ->name('users.destroy')
-//     ->middleware('admin');
-
-// // task routes
-// Route::resource('tasks', TaskController::class)->middleware('admin');
-
-// work in the same way but shorter
-Route::middleware('admin')->group(function () {
-    // user routes
-    Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
-    Route::post('/users/store', [UserController::class, 'store'])->name('users.store');
-    Route::get('/users/show/{user}', [UserController::class, 'show'])->name('users.show');
-    Route::get('/users/edit/{user}', [UserController::class, 'edit'])->name('users.edit');
-    Route::put('/users/update/{user}', [UserController::class, 'update'])->name('users.update');
-    Route::get('/users/delete/{user}', [UserController::class, 'showDeleteForm'])->name('users.deleteForm');
-    Route::delete('/users/destroy/{user}', [UserController::class, 'destroy'])->name('users.destroy');
-
-    // task routes
-    Route::resource('tasks', TaskController::class);
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+require __DIR__.'/auth.php';
