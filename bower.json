@@ -1,0 +1,21 @@
+{
+  "name": "laravel_training",
+  "description": "",
+  "main": "",
+  "authors": [
+    "Long Pham <longpd1911@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/DannyP4/code_review",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "template-bower-example": "https://github.com/awesome-academy/php-intern-2023-11-social-media/tree/master/bower_components/template-bower-example"
+  }
+}
