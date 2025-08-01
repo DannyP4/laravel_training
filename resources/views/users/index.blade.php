@@ -17,6 +17,7 @@
                     <x-primary-button class="mt-4">
                         {{ __('Create new user') }}
                     </x-primary-button>
+                    {{-- @dump($users) --}}
                 </p>
             </a>
             <table class="table">
@@ -25,6 +26,7 @@
                         <th class="text-gray-900 dark:text-gray-100 text-center" scope="col">#</th>
                         <th class="text-gray-900 dark:text-gray-100 text-center" scope="col">Name</th>
                         <th class="text-gray-900 dark:text-gray-100 text-center" scope="col">Username</th>
+                        <th class="text-gray-900 dark:text-gray-100 text-center" scope="col">Tasks</th>
                         <th class="text-gray-900 dark:text-gray-100 text-center" scope="col">Actions</th>
                     </tr>
                 </thread>
@@ -34,6 +36,12 @@
                             <th class="text-gray-900 dark:text-gray-100 text-center" scope="row">{{ ++$index }}</th>
                             <td class="text-gray-900 dark:text-gray-100 text-center">{{ $user->fullname }}</td>
                             <td class="text-gray-900 dark:text-gray-100 text-center">{{ $user->username }}</td>
+                            <td class="text-gray-900 dark:text-gray-100 text-center">
+                                @foreach ($user->tasks as $task)
+                                    <p>{{ $task->name }}</p>
+                                @endforeach
+                                {{-- @dump($user) --}}
+                            </td>
                             <td class="text-gray-900 dark:text-gray-100 text-center">
                                 <a href="{{ route('users.edit', $user) }}">
                                     <x-primary-button class="mt-4">
