@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 
 class UserController extends Controller
 {
@@ -12,7 +15,14 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('users.index', ['users' => User::all()]); // return all users
+        return view('users.index', [
+            'users' => User::with('tasks')->get() // eager loading
+        ]); // return all users
+
+        // lazy Eager Loading
+        // return view('users.index', [
+        //     'users' => User::all()->load('tasks'),
+        // ]);
     }
 
     /**
@@ -26,7 +36,7 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
         User::create([
             'first_name' => $request->first_name,
@@ -58,14 +68,23 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user)
+    public function update(UpdateUserRequest $request, User $user)
     {
+        // eloquent orm
         $user->update([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'username' => $request->username,
             'email' => $request->email,
         ]);
+
+        // query builder
+        // DB::table('users')->where('id', $user->id)->update([
+        //     'first_name' => $request->first_name,
+        //     'last_name' => $request->last_name,
+        //     'username' => $request->username,
+        //     'email' => $request->email,
+        // ]);
 
         // if the password is provided, hash it
         if ($request->password) {
