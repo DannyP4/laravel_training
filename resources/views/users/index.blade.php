@@ -26,6 +26,7 @@
                         <th class="text-gray-900 dark:text-gray-100 text-center" scope="col">#</th>
                         <th class="text-gray-900 dark:text-gray-100 text-center" scope="col">Name</th>
                         <th class="text-gray-900 dark:text-gray-100 text-center" scope="col">Username</th>
+                        <th class="text-gray-900 dark:text-gray-100 text-center" scope="col">Phone</th>
                         <th class="text-gray-900 dark:text-gray-100 text-center" scope="col">Tasks</th>
                         <th class="text-gray-900 dark:text-gray-100 text-center" scope="col">Actions</th>
                     </tr>
@@ -36,6 +37,9 @@
                             <th class="text-gray-900 dark:text-gray-100 text-center" scope="row">{{ ++$index }}</th>
                             <td class="text-gray-900 dark:text-gray-100 text-center">{{ $user->fullname }}</td>
                             <td class="text-gray-900 dark:text-gray-100 text-center">{{ $user->username }}</td>
+                            <td class="text-gray-900 dark:text-gray-100 text-center">
+                                {{ formatNumberSpacing($user->phone_number) }}
+                            </td>
                             <td class="text-gray-900 dark:text-gray-100 text-center">
                                 @foreach ($user->tasks as $task)
                                     <p>{{ $task->name }}</p>

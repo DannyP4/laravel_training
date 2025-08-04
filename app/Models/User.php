@@ -29,6 +29,7 @@ class User extends Authenticatable
         'is_active',
         //'is_admin',
         'username',
+        'phone_number',
     ]; // fillable is a whitelist of attributes that can be mass assigned
 
     // on the other hand, guarded is a blacklist of attributes that cannot be mass assigned

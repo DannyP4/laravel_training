@@ -37,6 +37,16 @@
                                     value="{{ $user->username }}"
                                     autocomplete="username" /><br>
 
+                    <x-input-label for="phone_number" :value="__('Phone Number')" />
+                    <div class="flex items-center">
+                        <span class="bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 px-3 py-2 rounded-l-md">+84</span>
+                        <x-text-input id="phone_number" class="block mt-1 w-full rounded-l-none"
+                                        type="text"
+                                        name="phone_number"
+                                        value="{{ $user->phone_number }}"
+                                        autocomplete="phone_number" />
+                    </div><br>
+
                     <x-input-label for="email" :value="__('Email')" />
                     <x-text-input id="email" class="block mt-1 w-full"
                                     type="email"
@@ -52,6 +62,9 @@
                 <x-primary-button class="mt-4">
                     {{ __('Edit') }}
                 </x-primary-button>
+                <a href="{{ route('users.index') }}" class="inline-flex items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150 ml-4">
+                    {{ __('Cancel') }}
+                </a>
             </form>
         </div>
     </div>

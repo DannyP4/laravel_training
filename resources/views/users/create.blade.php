@@ -36,6 +36,16 @@
                                     :value="old('username')"
                                     autocomplete="username" /><br>
 
+                    <x-input-label for="phone_number" :value="__('Phone Number')" />
+                    <div class="flex items-center">
+                        <span class="bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 px-3 py-2 rounded-l-md">+84</span>
+                        <x-text-input id="phone_number" class="block mt-1 w-full rounded-l-none"
+                                        type="text"
+                                        name="phone_number"
+                                        :value="old('phone_number')"
+                                        autocomplete="phone_number" />
+                    </div><br>
+
                     <x-input-label for="email" :value="__('Email')" />
                     <x-text-input id="email" class="block mt-1 w-full"
                                     type="email"
