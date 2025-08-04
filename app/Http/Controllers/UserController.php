@@ -108,8 +108,41 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        $user->delete();
+        // manually handle transactions
+        // // begin transaction
+        // DB::beginTransaction();
 
-        return redirect()->route('users.index');
+        // try {
+        //     // delete all tasks associated with the user
+        //     $user->tasks()->delete();
+
+        //     // delete the user
+        //     $user->delete();
+
+        //     // commit the transaction if successful
+        //     DB::commit();
+
+        //     return redirect()->route('users.index')->with('success', 'User deleted successfully!');
+        // } catch (\Exception $e) {
+        //     // rollback the transaction if there was an error
+        //     DB::rollBack();
+
+        //     return redirect()->route('users.index')->with('error', 'Failed to delete user: ' . $e->getMessage());
+        // }
+
+        // automatically handle transactions
+        try {
+            DB::transaction(function () use ($user) {
+                // delete all tasks associated with the user
+                $user->tasks()->delete();
+
+                // and delete the user
+                $user->delete();
+            });
+
+            return redirect()->route('users.index')->with('success', 'User deleted successfully!');
+        } catch (\Exception $e) {
+            return redirect()->route('users.index')->with('error', 'Failed to delete user: ' . $e->getMessage());
+        }
     }
 }
